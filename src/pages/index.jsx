@@ -1,7 +1,6 @@
-import Login from '../components/login'
+import Login from '../components/Home/login'
 import Link from "next/link"
-import SignUp from '../components/signUp'
-
+import SignUp from '../components/Home/signUp'
 
 export default function Home() {
   return (
