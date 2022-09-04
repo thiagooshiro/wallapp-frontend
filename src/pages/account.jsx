@@ -1,9 +1,10 @@
 import React from "react";
+import RegisterForm from "../components/Account/registerform";
 
 function Account() {
   return (
     <div>
-      <h1>AccRegisterForm</h1>
+      <RegisterForm/>
     </div>
   )
 }

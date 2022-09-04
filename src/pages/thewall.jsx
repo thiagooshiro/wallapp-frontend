@@ -1,14 +1,32 @@
 import React from "react"
+import Header from "../components/TheWall/header"
+import Postcard from "../components/TheWall/postcard"
 
-function TheWall() {
-  return(
+import { request } from "../lib/requests"
+
+function TheWall({ posts }) {
+
+  return (
     <div>
-      <h2>some header</h2>
+      <Header />
       <h1>The noise...</h1>
       <p>posttextField</p>
-      <h2>postlist</h2>
+      <div>
+        {posts.map(({title, content, owner}, index)=>(
+          <Postcard key={index} title={title} owner={owner} content={content}/>
+        ))}
+      </div>
     </div>
   )
+}
+
+export async function getServerSideProps() {
+  const endpoint = 'http://127.0.0.1:8000/postwall/feed/'
+  const posts = await request(endpoint, {}, 'get')
+
+  return {
+    props: { posts }
+  }
 }
 
 export default TheWall
