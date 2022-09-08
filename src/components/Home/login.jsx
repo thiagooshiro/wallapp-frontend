@@ -6,6 +6,8 @@ import { request } from "../../lib/requests"
 import WallContext from "../../context/wallcontext";
 import { ToastContainer, toast } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null);
@@ -17,7 +19,7 @@ function Login() {
     const endpoint = 'http://127.0.0.1:8000/accounts/login/';
     const data = await request(endpoint, { email, password }, 'post');
     if (data.status == 401) {
-      return toast.error(data.error.message);
+      return toast.error('Incorrect password or email');
     }
     setUser({ username: data.username, email: data.email });
     setToken(data.token);
@@ -27,7 +29,6 @@ function Login() {
   return (
     <>
       <ToastContainer
-        data-testid="common_login__element-invalid-email"
         position="top-center"
       />
       <FormControl>

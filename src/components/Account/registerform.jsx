@@ -31,7 +31,7 @@ function RegisterForm() {
   return (
     <>
       <ToastContainer
-        data-testid="common_login__element-invalid-email"
+        data-testid="common_login__element-invalid-register"
         position="top-center"
       />
       <FormControl>

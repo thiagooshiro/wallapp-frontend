@@ -1,32 +1,79 @@
-import React from "react"
+import React, { useContext, useState, useEffect } from "react"
+import { FormControl, TextField, Button } from "@mui/material"
 import Header from "../components/TheWall/header"
 import Postcard from "../components/TheWall/postcard"
+import WallContext from "../context/wallcontext"
+import { setHeaders, request } from "../lib/requests"
+import { ToastContainer, toast } from 'react-toastify';
 
-import { request } from "../lib/requests"
+import 'react-toastify/dist/ReactToastify.css';
 
-function TheWall({ posts }) {
+
+
+
+function TheWall() {
+  const { user } = useContext(WallContext)
+  const [content, setContent] = useState('')
+  const [title, setTitle] = useState('')
+  const [toggle, setToggle] = useState(false);
+  const [posts, setPosts] = useState(null)
+  const { token } = useContext(WallContext)
+
+
+  const publishContent = async () => {
+    const endpoint = 'http://127.0.0.1:8000/postwall/';
+    setHeaders(token)
+    let objectRequest;
+    title ? objectRequest = { title, content } : objectRequest = { content }
+    const data = await request(endpoint, objectRequest , 'post');
+    console.log(data)
+    if (data.status == 401 || data.status == 400) {
+      return toast.error(data.error.message);
+    }
+    setContent('')
+    setTitle('')
+    toggle == true ? setToggle(false) : setToggle(true);
+  }
+
+  useEffect(() =>{
+    populatePosts()
+  }, [toggle])
+
+  const populatePosts = async () => {
+    const endpoint = 'http://127.0.0.1:8000/postwall/feed/'
+  const posts = await request(endpoint, {}, 'get')
+
+  if (!posts) return null
+
+  return setPosts(posts)
+  }
+
 
   return (
     <div>
       <Header />
+      <ToastContainer position="top-center"/>
       <h1>The noise...</h1>
-      <p>posttextField</p>
+      {user ? <FormControl>
+        <TextField label="Name your thoughts..." 
+        onChange={({ target }) => setTitle(target.value)}
+        value={title}
+      />
+        <TextField 
+        multiline label="Share your thoughts..."
+        onChange={({ target }) => setContent(target.value)}
+        value={content}
+      />
+        <Button onClick={ publishContent }>Publish!</Button>
+    </FormControl> : null}
       <div>
-        {posts.map(({title, content, owner}, index)=>(
-          <Postcard key={index} title={title} owner={owner} content={content}/>
-        ))}
+        {posts ? posts.map(({ title, content, owner }, index) => (
+          <Postcard key={index} title={title} owner={owner} content={content} />
+        )) : <h4>An error has ocurred...</h4>}
       </div>
     </div>
   )
 }
 
-export async function getServerSideProps() {
-  const endpoint = 'http://127.0.0.1:8000/postwall/feed/'
-  const posts = await request(endpoint, {}, 'get')
-
-  return {
-    props: { posts }
-  }
-}
 
 export default TheWall

@@ -6,7 +6,7 @@ function Header() {
 
   return (
     <div>
-      <h1>{user.username? `Welcome ${user.username}`: "Welcome visitor"}</h1>
+      <h1>{user.username? `Welcome ${user.username}`: "Welcome Visitor"}</h1>
     </div>
   )
 }
