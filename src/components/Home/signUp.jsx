@@ -4,10 +4,11 @@ import Link from "next/link";
 function SignUp() {
   return (
     <div>
-      <h4>{"Don't have and account?"}</h4>
+      <h4>{"Don't have and account? "}
       <Link href='/account'>
-        <a>Sign Up</a>
+        Sign Up
       </Link>
+      </h4>
     </div>
   )
 }

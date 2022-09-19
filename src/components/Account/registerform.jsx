@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { request, setHeaders } from "../../lib/requests"
 import WallContext from "../../context/wallcontext";
 import { ToastContainer, toast } from 'react-toastify';
+import styles from "../../styles/Home.module.css"
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -21,11 +22,11 @@ function RegisterForm() {
     setHeaders(token)
     const data = await request(endpoint, { email, username, password }, 'post')
     console.log(data)
-    if (data.status == 400) {
+    if (data.status == 400 || data.status == 0) {
       return toast.error('Invalid data')
     }
     toast.success('user sucessfully registered')
-    setTimeout(() => {router.push('/')}, 4000);
+    setTimeout(() => { router.push('/') }, 4000);
   }
 
   return (
@@ -34,20 +35,15 @@ function RegisterForm() {
         data-testid="common_login__element-invalid-register"
         position="top-center"
       />
-      <FormControl>
-        <div>
-          <TextField size="small" id="outlined-email" label="Email" variant="outlined"
-            onChange={({ target }) => setEmail(target.value)} />
-        </div>
-        <div>
-          <TextField size="small" id="outlined-username" label="Username" variant="outlined"
-            onChange={({ target }) => setUsername(target.value)} />
-        </div>
-        <div>
-          <TextField size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
-            onChange={({ target }) => setPassword(target.value)} />
-        </div>
-        <Button variant="outlined" onClick={registerNewUser}>
+      <FormControl className={styles.loginform}>
+        <TextField className={styles.item} size="small" id="outlined-email" label="Email" variant="outlined"
+          onChange={({ target }) => setEmail(target.value)} />
+
+        <TextField className={styles.item} size="small" id="outlined-username" label="Username" variant="outlined"
+          onChange={({ target }) => setUsername(target.value)} />
+        <TextField className={styles.item}size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
+          onChange={({ target }) => setPassword(target.value)} />
+        <Button color="secondary" variant="outlined" onClick={registerNewUser}>
           Register!
         </Button>
       </FormControl>
