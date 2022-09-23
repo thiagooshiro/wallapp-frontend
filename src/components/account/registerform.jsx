@@ -1,12 +1,12 @@
 import { TextField, Button, FormControl } from "@mui/material";
 import { React, useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { request, setHeaders } from "../../lib/requests"
+import { request, setHeaders } from "../../lib/requests";
 import WallContext from "../../context/wallcontext";
 import { ToastContainer, toast } from 'react-toastify';
-import styles from "../../styles/Home.module.css"
+import styles from "../../styles/Home.module.css";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 
 function RegisterForm() {
@@ -16,17 +16,17 @@ function RegisterForm() {
   const { token } = useContext(WallContext);
   const router = useRouter();
 
-
   const registerNewUser = async () => {
-    const endpoint = 'http://127.0.0.1:8000/accounts/user/';
-    setHeaders(token)
-    const data = await request(endpoint, { email, username, password }, 'post')
-    console.log(data)
-    if (data.status == 400 || data.status == 0) {
-      return toast.error('Invalid data')
+    const FOUR_SECONDS = 4000;
+    const endpoint = `${process.env.BASE_URL}accounts/user/`;
+    setHeaders(token);
+    try {
+      await request(endpoint, { email, username, password }, 'post');
+      toast.success('user sucessfully registered');
+      setTimeout(() => { router.push('/') }, FOUR_SECONDS);
+    } catch (error) {
+      return toast.error(error.message);
     }
-    toast.success('user sucessfully registered')
-    setTimeout(() => { router.push('/') }, 4000);
   }
 
   return (
@@ -41,7 +41,7 @@ function RegisterForm() {
 
         <TextField className={styles.item} size="small" id="outlined-username" label="Username" variant="outlined"
           onChange={({ target }) => setUsername(target.value)} />
-        <TextField className={styles.item}size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
+        <TextField className={styles.item} size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
           onChange={({ target }) => setPassword(target.value)} />
         <Button color="secondary" variant="outlined" onClick={registerNewUser}>
           Register!

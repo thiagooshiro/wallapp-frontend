@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-
 import WallContext from './wallcontext'
+
 const { Provider } = WallContext;
 
 function WallProvider({ children }) {
@@ -14,8 +14,8 @@ function WallProvider({ children }) {
   };
 
   return (
-    <Provider value={ value }>
-      { children }
+    <Provider value={value}>
+      {children}
     </Provider>
   );
 }

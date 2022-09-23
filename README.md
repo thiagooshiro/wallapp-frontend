@@ -1,8 +1,29 @@
+## Welcome to WallApp FrontEnd
+
+This is the Front-End application for the Wall App. 
+WallApp is a social-media application where: 
+  1 - A authenticated User see all posts and make new posts on the wall.
+  2 - A guest can see all posts but cannot post.
+  3 - Users recieve an confirmation e-mail when they register a new account.
+
+Here is the [link](https://github.com/thiagooshiro/wall-app-backend) for the WallApp Backend repository
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+And also utilized: Material UI, axios and react-toastfy as additional packages.
 
 ## Getting Started
 
-First, run the development server:
+Clone the repository:
+```bash
+  gitclone git@github.com:thiagooshiro/wallapp-frontend.git
+```
+Install the packages:
+```bash
+  npm install
+```
+
+Then you can run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +33,21 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+The name of the files indicates the pages of the application, in this app there are three pages: 
+  index - Home page of the project
+  account - where users can register a new account
+  thewall - where are the posts and registered users can make new posts.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The components where separeted by page in the components directory.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Environemnt Variables
 
-## Learn More
+BASE_URL: This is the base url of your app, if you're running locally it will probably be the localhost
+BACKEND_PORT: It's the port where the API is running.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Final Thoughts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+There are still work to be done here, but I think the basis of the project is well established, next step would be to create E2E tests and make changes that the app looks better, create functionalities so the user can edit or delete their own posts and problably some other stuff that I'm not remembering right now.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+It was really an experience writing this Full Stack application, I learned a lot throughout the process, it become one of my favorite projects and I will surely come back to it in the future. 

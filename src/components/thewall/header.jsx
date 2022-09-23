@@ -10,7 +10,7 @@ function Header() {
   return (
     <div className={styles.header}>
       <h1>{user.username ? `Welcome ${user.username}` : "Welcome Visitor"}</h1>
-      {!user.username ?
+      {!user.username &&
         <div className={styles.container}>
           <Link href="/">
             <Button variant="outlined">
@@ -22,7 +22,7 @@ function Header() {
               Register
             </Button>
           </Link>
-        </div> : null}
+        </div> }
     </div>
   )
 }

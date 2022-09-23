@@ -15,7 +15,7 @@
 //   const { token } = useContext(WallContext)
 
 //   const publishContent = async () => {
-//     const endpoint = 'http://127.0.0.1:8000/postwall/';
+//     const endpoint = '${process.env.BASE_URL}/postwall/';
 //     setHeaders(token)
 //     let objectRequest;
 //     title ? objectRequest = { title, content } : objectRequest = { content }
