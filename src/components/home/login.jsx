@@ -18,7 +18,6 @@ function Login() {
 
   const checkCredentials = async () => {
     const endpoint = `${process.env.BASE_URL}accounts/login/`;
-    console.log(endpoint)
     try {
       const { data } = await request(endpoint, { email, password }, 'post');
       setUser({ username: data.username, email: data.email });
