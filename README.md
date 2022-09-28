@@ -1,9 +1,12 @@
 ## Welcome to WallApp FrontEnd
 
 This is the Front-End application for the Wall App. 
-WallApp is a social-media application where: 
+WallApp is a social-media application where:
+
   1 - A authenticated User see all posts and make new posts on the wall.
+
   2 - A guest can see all posts but cannot post.
+
   3 - Users recieve an confirmation e-mail when they register a new account.
 
 Here is the [link](https://github.com/thiagooshiro/wall-app-backend) for the WallApp Backend repository
@@ -34,15 +37,21 @@ yarn dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 The name of the files indicates the pages of the application, in this app there are three pages: 
+  
   index - Home page of the project
+
   account - where users can register a new account
+  
   thewall - where are the posts and registered users can make new posts.
 
 The components where separeted by page in the components directory.
 
-## Environemnt Variables
+## Environment Variables
+
+Create and "env.local" file in the root of the project, then declare the environment variables you will use, this project utilize these two env variables:
 
 BASE_URL: This is the base url of your app, if you're running locally it will probably be the localhost
+
 BACKEND_PORT: It's the port where the API is running.
 
 

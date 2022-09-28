@@ -12,12 +12,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [password, setPassword] = useState('');
   const { setUser, setToken } = useContext(WallContext);
   const router = useRouter();
 
   const checkCredentials = async () => {
     const endpoint = `${process.env.BASE_URL}accounts/login/`;
+    console.log(endpoint)
     try {
       const { data } = await request(endpoint, { email, password }, 'post');
       setUser({ username: data.username, email: data.email });
