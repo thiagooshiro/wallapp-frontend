@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function RegisterForm() {
   const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [password, setPassword] = useState('');
   const [username, setUsername] = useState(null);
   const { token } = useContext(WallContext);
   const router = useRouter();
@@ -29,6 +29,16 @@ function RegisterForm() {
     }
   }
 
+  const validateEmail = () => {
+    const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePassword = () => {
+    const MIN_PASSWORD = 8;
+    return password.length >= MIN_PASSWORD;
+  };
+
   return (
     <>
       <ToastContainer
@@ -36,14 +46,42 @@ function RegisterForm() {
         position="top-center"
       />
       <FormControl className={styles.loginform}>
-        <TextField className={styles.item} size="small" id="outlined-email" label="Email" variant="outlined"
-          onChange={({ target }) => setEmail(target.value)} />
-
-        <TextField className={styles.item} size="small" id="outlined-username" label="Username" variant="outlined"
-          onChange={({ target }) => setUsername(target.value)} />
-        <TextField className={styles.item} size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
-          onChange={({ target }) => setPassword(target.value)} />
-        <Button color="secondary" variant="outlined" onClick={registerNewUser}>
+        <TextField
+          className={styles.item}
+          size="small" id="outlined-email"
+          label="Email" variant="outlined"
+          onChange={({ target }) => setEmail(target.value)}
+          helperText={ email && !validateEmail() && "Invalid email format" }
+          error={ email && !validateEmail() }
+          value={ email }
+        />
+        <TextField
+          className={styles.item}
+          size="small"
+          id="outlined-username"
+          label="Username"
+          variant="outlined"
+          onChange={({ target }) => setUsername(target.value)}
+          value={ username }
+        />
+        <TextField
+          className={styles.item}
+          size="small"
+          id="outlined-pass"
+          label="Password"
+          type="password"
+          variant="outlined"
+          onChange={({ target }) => setPassword(target.value)}
+          value={ password }
+          helperText={ password && !validatePassword() && "Password must have at least 8 characters" }
+          error={ password && !validatePassword() }
+        />
+        <Button
+          color="secondary"
+          variant="outlined"
+          onClick={registerNewUser}
+          disabled={!validateEmail() || !validatePassword()}
+        >
           Register!
         </Button>
       </FormControl>

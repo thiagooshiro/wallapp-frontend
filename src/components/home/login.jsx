@@ -28,17 +28,50 @@ function Login() {
     }
   }
 
+  const validateEmail = () => {
+    const re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePassword = () => {
+    const MIN_PASSWORD = 8;
+    return password.length >= MIN_PASSWORD;
+  };
+
+
   return (
     <>
       <ToastContainer
         position="top-center"
       />
       <FormControl className={styles.loginform}>
-        <TextField className={styles.item} size="small" id="outlined-email" label="Email" variant="outlined"
-          onChange={({ target }) => setEmail(target.value)} />
-        <TextField className={styles.item} size="small" id="outlined-pass" label="Password" type="password" variant="outlined"
-          onChange={({ target }) => setPassword(target.value)} />
-        <Button color="secondary" className={styles.item} variant="outlined" onClick={checkCredentials}>
+        <TextField className={styles.item} 
+          size="small"
+          id="outlined-email"
+          label="Email"
+          variant="outlined"
+          onChange={({ target }) => setEmail(target.value)}
+          helperText={ email && !validateEmail() && "Invalid email format" }
+          error={ email && !validateEmail() }
+        />
+        <TextField
+          className={styles.item}
+          size="small"
+          id="outlined-pass"
+          label="Password"
+          type="password"
+          variant="outlined"
+          onChange={({ target }) => setPassword(target.value)}
+          helperText={ password && !validatePassword() && "Password must have at least 8 characters" }
+          error={ password && !validatePassword() }
+        />
+        <Button
+          color="secondary"
+          className={styles.item}
+          variant="outlined"
+          onClick={checkCredentials}
+          disabled={ !validateEmail() || !validatePassword() }
+        >
           Login
         </Button>
         <Link href="/thewall">
